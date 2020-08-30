@@ -26,6 +26,7 @@ public class AraayEx3 {
 		System.out.println("IntArray[0][0]에 저장된 숫자는 "+ price + "입니다.");
 		System.out.println("IntArray[0][0]에 저장된 회원 번호는 " + num + "입니다.");
 		
+	
 		
 		
 		
