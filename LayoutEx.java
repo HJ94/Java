@@ -1,8 +1,13 @@
 package appEx;
 
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class LayoutEx extends Frame {
+
+public class LayoutEx extends Frame implements AdjustmentListener {
 //	Frame f = new Frame();
 	
 	Panel p1 = new Panel();
@@ -30,9 +35,9 @@ public class LayoutEx extends Frame {
 
 		
 		//스크롤바 HORIZONTAL
-		sb1 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,260);
-		sb2 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,260);
-		sb3 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,260);
+		sb1 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,265);
+		sb2 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,265);
+		sb3 = new Scrollbar(Scrollbar.HORIZONTAL, 0, 10, 0 ,265);
 		
 		
 		tf = new TextField("",30);		
@@ -63,15 +68,48 @@ public class LayoutEx extends Frame {
 		add(p1);
 		add(p2);
 		
+		//이벤트 감청자 등록(움직임을 감지하여 알려줌) 
+		sb1.addAdjustmentListener(this);
+		sb2.addAdjustmentListener(this);
+		sb3.addAdjustmentListener(this);
+		
+		
 		setSize(500,500);
 		setVisible(true);
-		
+	
+		// 닫기(종료)
+		addWindowListener(new WindowAdapter() { // 모바일에서 많이 사용(내부 익명)
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 	}
+	
+	@Override	
+	public void adjustmentValueChanged(AdjustmentEvent e) {
+		ta.setBackground(new Color(sb1.getValue(),sb2.getValue(),sb3.getValue()));
+		tf.setText("R: " + sb1.getValue() + " G: " + sb2.getValue() + " B: " + sb3.getValue());
+		
+		
+//		int r=0, g=0, b=0;
+//		r = sb1.getValue();
+//		g = sb2.getValue();
+//		b = sb3.getValue();
+//		
+//		Color color = new Color(r,g,b);
+//		ta.setBackground(color);
+	}
+	
+	
+	
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new LayoutEx();
 	}
+
+
+
 
 }
